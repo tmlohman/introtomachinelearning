@@ -4,17 +4,12 @@
     Skeleton code for k-means clustering mini-project.
 """
 
-
-
-
 import pickle
 import numpy 
 import matplotlib.pyplot as plt
 import sys
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
-
-
 
 
 def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2"):
@@ -61,9 +56,7 @@ for k, v in data_dict.iteritems():
 		max_eso = v['exercised_stock_options']
 	if v['exercised_stock_options'] < min_eso and v['exercised_stock_options'] != "NaN":
 		min_eso = v['exercised_stock_options']
-		
-print max_eso
-print min_eso
+
 
 max_salary = 0
 min_salary = 100000
@@ -72,9 +65,28 @@ for k, v in data_dict.iteritems():
 		max_salary = v['salary']
 	if v['salary'] < min_salary and v['salary'] != "NaN":
 		min_salary = v['salary']
-		
-print max_salary
-print min_salary
+
+# create 1-D array for scaler function input
+salaries = data[:, [1]]
+eso = data[:, [2]]
+
+# sklearn scaler, uses default min/max values
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+scaled_salaries = scaler.fit_transform(salaries)
+scaled_eso = scaler.fit_transform(eso)
+
+
+# manual scaler using min/max values (ignores NaN/0), to solve quiz
+def scaled(val, min_val, max_val):
+	val_scaled = (val - min_val) / (max_val - min_val)
+	return val_scaled
+	
+print scaled(200000., min_salary, max_salary)
+print scaled(1000000., min_eso, max_eso)
+
+
+
 	
 
 ### in the "clustering with 3 features" part of the mini-project,

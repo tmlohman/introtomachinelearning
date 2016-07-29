@@ -1,8 +1,5 @@
 #!/usr/bin/python
 
-p = [0, 2,4,6,8,10, 12,14,16,18]
-a = [0,1,2,3,4,5,6,7,8,9]
-nw = [0.1, 2, 4, 6, 7.5, 10.1, 12, 14, 16.3, 18]
 def outlierCleaner(predictions, ages, net_worths):
     """
         Clean away the 10% of points that have the largest
@@ -28,5 +25,3 @@ def outlierCleaner(predictions, ages, net_worths):
 		
     return cleaned_data
 
-#print len(outlierCleaner(p, a, nw))
-#print len(p)
